@@ -43,7 +43,7 @@ fn main() {
 
     println!("Setting up server");
 
-    if metadata("site").is_err() {
+    if exists(&mkpath("site")) {
         // site doesn't exist yet so create it
         let _ = create_dir("site");
     }
@@ -58,12 +58,12 @@ fn main() {
         let sleep_int = hot.parse::<u64>().expect("Use a number for input");
 
         let _ = spawn(move || {
-            let dir = Path::new("_sass");
+            let dir = mkpath("_sass");
             watch_dir(sleep_int, dir, compile_sass);
         });
 
         let _ = spawn(move || {
-            let dir = Path::new("_pages");
+            let dir = mkpath("_pages");
             watch_dir(sleep_int, dir, render_pages);
         });
     }
@@ -77,12 +77,12 @@ fn mount_dirs(mount: &mut Mount) {
     println!("Mounting files");
 
     // Mount all of the assets
-    mount.mount("/css", Static::new(Path::new("assets/css/")));
-    mount.mount("/js", Static::new(Path::new("assets/js/")));
-    mount.mount("/images", Static::new(Path::new("assets/images/")));
+    mount.mount("/css", Static::new(mkpath("assets/css/")));
+    mount.mount("/js", Static::new(mkpath("assets/js/")));
+    mount.mount("/images", Static::new(mkpath("assets/images/")));
 
     // Hardcode the starting page to the root
-    mount.mount("/", Static::new(Path::new("site/")));
+    mount.mount("/", Static::new(mkpath("site/")));
 
     // Mount each directory to the site
     match read_dir("site") {
@@ -133,15 +133,21 @@ fn render_pages() {
     }
 
     // Render the top level
-    render_md(Path::new("_pages"), PathBuf::from("site"));
+    render_md(mkpath("_pages"), PathBuf::from("site"));
 }
 
 fn render_md(from: &Path, mut to: PathBuf) {
     println!("Rendering Markdown for {}", from.to_str().unwrap());
+    let mut header = String::new();
+    let mut body   = String::new();
+    let mut footer = String::new();
+
+    read_in_includes(&mut header, &mut body, &mut footer);
+
     match read_dir(from) {
         Ok(iter) => {
 
-            if from != Path::new("_pages") && metadata(&to).is_err() {
+            if from != mkpath("_pages") && exists(&to) {
                 // Folder doesn't exist yet so create it
                 let _ = create_dir(&to);
             }
@@ -162,13 +168,12 @@ fn render_md(from: &Path, mut to: PathBuf) {
                             md.read_to_string(&mut buf).expect("Couldn't read md file");
 
                             // Parse string then write it to the html file
-                            let mut marked = parse(&buf);
+                            let mut marked = String::new();
+                            marked.push_str(&header);
+                            marked.push_str(&parse(&buf));
+                            marked.push_str(&body);
+                            marked.push_str(&footer);
 
-                            // Get the main style sheet automatically as part of the file
-                            marked.push_str("<link rel=\"stylesheet\" type=\"text/css\" href=\"/css/main.css\">");
-                            marked.push_str("<link rel=\"stylesheet\" href=\"/css/highlight/zenburn.css\">");
-                            marked.push_str("<script src=\"/js/highlight/highlight.pack.js\"></script>");
-                            marked.push_str("<script>hljs.initHighlightingOnLoad();</script>");
 
                             let mut html = File::create(&to).expect("Unable to create html file");
                             let _ = html.write_all(marked.as_bytes());
@@ -184,6 +189,21 @@ fn render_md(from: &Path, mut to: PathBuf) {
         Err(_) => panic!("Code not run from project root"),
     }
     println!("Rendering Markdown for {} completed", from.to_str().unwrap());
+}
+
+fn read_in_includes(mut h_buf: &mut String, mut b_buf: &mut String, mut f_buf: &mut String) {
+    let h = mkpath("includes/header.html");
+    let b = mkpath("includes/body.html");
+    let f = mkpath("includes/footer.html");
+
+    let mut file_handle = File::open(h).expect("Couldn't open includes for site");
+    file_handle.read_to_string(&mut h_buf).expect("Couldn't read include file");
+
+    file_handle = File::open(b).expect("Couldn't open includes for site");
+    file_handle.read_to_string(&mut b_buf).expect("Couldn't read include file");
+
+    file_handle = File::open(f).expect("Couldn't open includes for site");
+    file_handle.read_to_string(&mut f_buf).expect("Couldn't read include file");
 }
 
 fn is_md_file(path: &Path) -> bool {
@@ -203,7 +223,7 @@ fn compile_sass() {
                         .stdout;
     let sass = String::from_utf8_lossy(&output);
 
-    let mut css = File::create(Path::new("assets/css/main.css"))
+    let mut css = File::create(mkpath("assets/css/main.css"))
         .expect("Unable to create css file");
     let _ = css.write_all(sass.as_bytes());
 
@@ -263,4 +283,13 @@ fn md5sum(buffer: &mut String, path: &Path) {
         },
         Err(_) => panic!("Code not run from project root"),
     }
+}
+
+/// Does the directory or file exist?
+fn exists(path: &Path) -> bool {
+    metadata(path).is_err()
+}
+
+fn mkpath(path: &str) -> &Path {
+    Path::new(path)
 }
