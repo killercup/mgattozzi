@@ -16,7 +16,11 @@ var config = {
         test : /\.jsx?/,
         include : APP_DIR,
         loaders: ['react-hot', 'babel']
-      }
+      },
+      {
+        test: /\.json$/,
+        loader: 'json'
+      },
     ]
   },
   plugins: [

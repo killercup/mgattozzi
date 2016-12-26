@@ -1,6 +1,5 @@
 # Barely Functional
-<div class="front-subtitle"> Thoughts and musings from a functional programmer who drinks too much
-coffee.</div>
+Thoughts and musings from a functional programmer who drinks too much coffee.
 
 Welcome! This site contains a variety of things including how to get in
 contact with me, my resume, who I am, as well as a articles I have written
@@ -10,8 +9,6 @@ If you're a recruiter I'm currently not looking for a job right now, but
 I encourage you to get in contact with me if I ever do decide I'm
 looking for a new job.
 
-<div class="recent">
-
 Recent Articles
 
 - [Announcing Pipers](/posts/pipers.html)
@@ -19,5 +16,3 @@ Recent Articles
 - [Russian Dolls and clean Rust code](/posts/russian-dolls.html)
 - [Schemers - Exercise 1](/posts/scheme-ex1.html)
 - [Schemers - Input](/posts/scheme-input.html)
-
-</div>
