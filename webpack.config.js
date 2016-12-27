@@ -13,14 +13,22 @@ var config = {
   module : {
     loaders : [
       {
-        test : /\.jsx?/,
+        test : /\.jsx?$/,
         include : APP_DIR,
-        loaders: ['react-hot', 'babel']
+        loader: 'babel',
+        query: {
+          presets: ['react']
+        }
       },
       {
         test: /\.json$/,
         loader: 'json'
       },
+      {
+        test: /\.md$/,
+        loader: "html!markdown"
+      },
+      { test: /\.png$/, loader: "url-loader?mimetype=image/png" },
     ]
   },
   plugins: [
