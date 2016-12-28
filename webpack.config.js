@@ -17,7 +17,7 @@ var config = {
         include : APP_DIR,
         loader: 'babel',
         query: {
-          presets: ['react']
+          presets: ['react','es2015']
         }
       },
       {
@@ -26,7 +26,7 @@ var config = {
       },
       {
         test: /\.md$/,
-        loader: "html!markdown"
+        loader: "raw-loader"
       },
       { test: /\.png$/, loader: "url-loader?mimetype=image/png" },
     ]
