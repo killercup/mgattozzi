@@ -42,11 +42,11 @@ render(
             <Route path="haskell-rust" component={HaskellRust}/>
             <Route path="how-do-i-std-macros" component={StdMacros}/>
             <Route path="how-do-i-str-string" component={StrString}/>
-            <Route path="one-year-of-rust" component={OneRust}/>
+            <Route path="1-year-of-rust" component={OneRust}/>
             <Route path="pipers" component={Pipers}/>
             <Route path="russian-dolls" component={RussianDolls}/>
             <Route path="rust-haskell" component={RustHaskell}/>
-            <Route path="scheme-ex-1" component={SchemeEx1}/>
+            <Route path="scheme-ex1" component={SchemeEx1}/>
             <Route path="scheme-input" component={SchemeInput}/>
             <Route path="scheme-parser" component={SchemeParser}/>
             <Route path="schrodingers-bug" component={SchrodingersBug}/>

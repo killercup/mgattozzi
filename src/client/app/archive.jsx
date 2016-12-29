@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router'
 
 class Archive extends React.Component {
 
@@ -15,30 +16,30 @@ class Archive extends React.Component {
             Articles regarding my package name conversion tool.
           </p>
           <ul>
-            <li><a href="/posts/announcing-alchemist.html">
+            <li><Link to="/announcing-alchemist">
               Announcing Alchemist: v0.1.0
-            </a></li>
+            </Link></li>
           </ul>
         <h2>Rust</h2>
           <p>
             Articles about various topics in Rust
           </p>
           <ul>
-            <li><a href="/posts/blog-about-rust.html">
+            <li><Link to="/blog-about-rust">
               Why you should be blogging about Rust
-            </a></li>
-            <li><a href="/posts/1-year-of-rust.html">
+            </Link></li>
+            <li><Link to="/1-year-of-rust">
               One year of Rust
-            </a></li>
-            <li><a href="/posts/understanding-where-clauses.html">
+            </Link></li>
+            <li><Link to="/understanding-where-clauses">
               Understanding where clauses and trait constraints
-            </a></li>
-            <li><a href="/posts/russian-dolls.html">
+            </Link></li>
+            <li><Link to="/russian-dolls">
               Russian Dolls and clean Rust code
-            </a></li>
-            <li><a href="/posts/pipers.html">
+            </Link></li>
+            <li><Link to="/pipers">
               Announcing Pipers
-            </a></li>
+            </Link></li>
           </ul>
         <h2>Schemers</h2>
           <p>
@@ -46,27 +47,27 @@ class Archive extends React.Component {
             by writing a scheme interpreter. These are listed in order.
           </p>
           <ul>
-            <li><a href="/posts/scheme-input.html">
+            <li><Link to="/scheme-input">
               Input
-            </a></li>
-            <li><a href="/posts/scheme-ex1.html">
+            </Link></li>
+            <li><Link to="/scheme-ex1">
               Exercise 1
-            </a></li>
-            <li><a href="/posts/scheme-parser.html">
+            </Link></li>
+            <li><Link to="/scheme-parser">
               Parser 1
-            </a></li>
+            </Link></li>
           </ul>
         <h2>Haskell and Rust</h2>
           <p>
             Articles doing FFI with Haskell and Rust
           </p>
           <ul>
-            <li><a href="/posts/haskell-rust.html">
+            <li><Link to="/haskell-rust">
               FFI with Haskell and Rust
-            </a></li>
-            <li><a href="/posts/rust-haskell.html">
+            </Link></li>
+            <li><Link to="/rust-haskell">
               Using Haskell in Rust
-            </a></li>
+            </Link></li>
           </ul>
         <h2>How do I X in Rust?</h2>
           <p>
@@ -74,21 +75,21 @@ class Archive extends React.Component {
             normally associated with learning the language.
           </p>
           <ul>
-            <li><a href="/posts/how-do-i-str-string.html">
+            <li><Link to="/how-do-i-str-string">
               How do I convert a &amp;str to String in Rust?
-            </a></li>
-            <li><a href="/posts/how-do-i-std-macros.html">
+            </Link></li>
+            <li><Link to="/how-do-i-std-macros">
               How do I use the Standard Library macros in Rust?
-            </a></li>
+            </Link></li>
           </ul>
         <h2>JS</h2>
           <p>
             Articles regarding my usage of JavaScript.
           </p>
           <ul>
-            <li><a href="/posts/schrodingers-bug.html">
+            <li><Link to="/schrodingers-bug">
               Schrodinger's Bug: Adventures in Asynchronous Debugging
-            </a></li>
+            </Link></li>
           </ul>
       </div>
     );

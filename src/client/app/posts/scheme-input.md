@@ -210,7 +210,7 @@ code.
 
 Except, it's going to fail. Let's take a look at the error message:
 
-```bash
+```none
 error[E0384]: re-assignment of immutable variable `done`
  --> src/main.rs:4:9
   |

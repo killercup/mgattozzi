@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import hljs from 'highlight.js';
 
 class Main extends React.Component {
   containerData() {
@@ -39,6 +40,7 @@ class Main extends React.Component {
   render () {
     return(
     <div>
+         <link rel="stylesheet" href="/static/css/styles/github.css"></link>
          <div>
           <nav className="navbar navbar-default">
               <div className="container-fluid">
